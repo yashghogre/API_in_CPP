@@ -44,7 +44,22 @@ int main() {
 
 /*  Post Request to Groq API */
 
-  std::string jsonData = R"({"model": "llama-3.3-70b-versatile", "messages": [{"role": "user", "content": "What is AGI and when will we achieve it?"}]})";
+//  std::string jsonData = R"({"model": "llama-3.3-70b-versatile", "messages": [{"role": "user", "content": "What is AGI and when will we achieve it?"}]})";
+
+  json jsonData;
+  std::string model_name = "llama-3.3-70b-versatile";
+  json messages[1];
+  json msg;
+  std::string role = "user";
+  std::string content = "What is AGI and when will we achieve it?";
+  
+  msg["role"] = role;
+  msg["content"] = content;
+  messages[0] = msg;
+  jsonData["model"] = model_name;
+  jsonData["messages"] = messages;
+
+  std::string jsonString = jsonData.dump();
 
   curl_easy_setopt(curl, CURLOPT_URL, "https://api.groq.com/openai/v1/chat/completions");
   curl_easy_setopt(curl, CURLOPT_POST, 1L);
@@ -54,7 +69,7 @@ int main() {
   headers = curl_slist_append(headers, "Authorization: Bearer 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");
 
   curl_easy_setopt(curl, CURLOPT_HTTPHEADER, headers);
-  curl_easy_setopt(curl, CURLOPT_POSTFIELDS, jsonData.c_str());
+  curl_easy_setopt(curl, CURLOPT_POSTFIELDS, jsonString.c_str());
 
   curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, writeCallback);
   curl_easy_setopt(curl, CURLOPT_WRITEDATA, &response);
