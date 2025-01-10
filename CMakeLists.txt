@@ -6,6 +6,6 @@ project(main)
 
 find_package(CURL REQUIRED)
 
-add_executable(main main.cpp api_fetch.cpp)
+add_executable(main main.cpp api_fetch/api_fetch.cpp)
 
 target_link_libraries(main CURL::libcurl)

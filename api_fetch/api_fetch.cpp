@@ -1,7 +1,7 @@
 #include <iostream>
 #include "api_fetch.h"
 #include <curl/curl.h>
-#include "library/json.hpp"
+#include "../library/json.hpp"
 
 using json = nlohmann::json;
 
@@ -32,20 +32,20 @@ bool api_fetch(std::string* mainResponse) {
     return false;
   }
 
-/*  Get Request */
-/*
-//  curl_easy_setopt(curl, CURLOPT_URL, "http://127.0.0.1:3000/api/test");
+  /*  Get Request */
+  /*
+  //  curl_easy_setopt(curl, CURLOPT_URL, "http://127.0.0.1:3000/api/test");
   curl_easy_setopt(curl, CURLOPT_URL, "https://jsonplaceholder.typicode.com/posts/1");
   curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, writeCallback);
   curl_easy_setopt(curl, CURLOPT_WRITEDATA, &response);
   //curl_easy_setopt(curl, CURLOPT_VERBOSE, 1L);
   curl_easy_setopt(curl, CURLOPT_SSL_VERIFYPEER, 0L);
   curl_easy_setopt(curl, CURLOPT_SSL_VERIFYHOST, 0L);
-*/
+   */
 
-/*  Post Request to Groq API */
+  /*  Post Request to Groq API */
 
-//  std::string jsonData = R"({"model": "llama-3.3-70b-versatile", "messages": [{"role": "user", "content": "What is AGI and when will we achieve it?"}]})";
+  //  std::string jsonData = R"({"model": "llama-3.3-70b-versatile", "messages": [{"role": "user", "content": "What is AGI and when will we achieve it?"}]})";
 
   json jsonData;
   std::string model_name = "llama-3.3-70b-versatile";
@@ -53,7 +53,7 @@ bool api_fetch(std::string* mainResponse) {
   json msg;
   std::string role = "user";
   std::string content = "What is AGI and when will we achieve it?";
-  
+
   msg["role"] = role;
   msg["content"] = content;
   messages[0] = msg;
@@ -64,7 +64,7 @@ bool api_fetch(std::string* mainResponse) {
 
   curl_easy_setopt(curl, CURLOPT_URL, "https://api.groq.com/openai/v1/chat/completions");
   curl_easy_setopt(curl, CURLOPT_POST, 1L);
-  
+
   struct curl_slist* headers = nullptr;
   headers = curl_slist_append(headers, "Content-Type: application/json");
   headers = curl_slist_append(headers, "Authorization: Bearer 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");
@@ -89,7 +89,7 @@ bool api_fetch(std::string* mainResponse) {
     //long responseCode;
     //curl_easy_getinfo(curl, CURLINFO_RESPONSE_CODE, &responseCode);
     //std::cout << "Response code: " << responseCode << std::endl;
-    */
+     */
 
     //std::cout << "response: " << response << std::endl;
     std::cout << std::endl;
