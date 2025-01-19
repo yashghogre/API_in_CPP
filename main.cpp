@@ -9,7 +9,7 @@ int main() {
   std::string response;
   std::string query;
 
-  std::cout << "Please write the query to fetch: " << std::endl;
+  std::cout << "Please write the problem for which you want the program: " << std::endl;
   getline(std::cin, query);
 
   bool apiRes = api_fetch(&response, query);

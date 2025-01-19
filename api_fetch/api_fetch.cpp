@@ -19,10 +19,17 @@ size_t writeCallback(void* contents, size_t size, size_t nmem, std::string* s) {
   return newLength;
 }
 
+void removeQuotes(std::string& str) {
+  str.erase(std::remove(str.begin(), str.end(), '\"'), str.end());
+}
+
 bool api_fetch(std::string* mainResponse, std::string query) {
   CURL* curl;
   CURLcode res;
   std::string response;
+  std::string content;
+
+  content = query + ". Just give the code, don't give the explanation. I only want the programming code for this problem in CPP Language. Also, don't give it in the markdown format so don't include any '\n' or similar symbols, don't mention the programming language as well.";
 
   curl_global_init(CURL_GLOBAL_DEFAULT);
   curl = curl_easy_init();
@@ -55,7 +62,7 @@ bool api_fetch(std::string* mainResponse, std::string query) {
   // std::string content = "What is AGI and when will we achieve it?";
 
   msg["role"] = role;
-  msg["content"] = query;
+  msg["content"] = content;
   messages[0] = msg;
   jsonData["model"] = model_name;
   jsonData["messages"] = messages;
@@ -100,10 +107,16 @@ bool api_fetch(std::string* mainResponse, std::string query) {
   curl_global_cleanup();
 
   json jsonRes = json::parse(response);
-  *mainResponse = response;
+  //string quotesRemoved = removeQuotes(static_cast<std::string>(jsonRes["choices"][0]["message"]["content"]));
+  auto answer = jsonRes["choices"][0]["message"]["content"];
+  std::string finalContent = answer.dump();
+  *mainResponse = finalContent;
+
+  removeQuotes(finalContent);
 
   std::cout << "::Response:: " << std::endl << std::endl;
-  std::cout << jsonRes["choices"][0]["message"]["content"] << std::endl;
+  std::cout << finalContent << std::endl;
+  // std::cout << quotesRemoved << std::endl;
 
   return true;
 
