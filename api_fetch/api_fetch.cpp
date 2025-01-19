@@ -96,7 +96,7 @@ bool api_fetch(std::string* mainResponse, std::string query) {
     //long responseCode;
     //curl_easy_getinfo(curl, CURLINFO_RESPONSE_CODE, &responseCode);
     //std::cout << "Response code: " << responseCode << std::endl;
-     */
+    */
 
     //std::cout << "response: " << response << std::endl;
     std::cout << std::endl;
@@ -107,7 +107,6 @@ bool api_fetch(std::string* mainResponse, std::string query) {
   curl_global_cleanup();
 
   json jsonRes = json::parse(response);
-  //string quotesRemoved = removeQuotes(static_cast<std::string>(jsonRes["choices"][0]["message"]["content"]));
   auto answer = jsonRes["choices"][0]["message"]["content"];
   std::string finalContent = answer.dump();
   *mainResponse = finalContent;
