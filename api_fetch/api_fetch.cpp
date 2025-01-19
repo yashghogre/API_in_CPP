@@ -19,7 +19,7 @@ size_t writeCallback(void* contents, size_t size, size_t nmem, std::string* s) {
   return newLength;
 }
 
-bool api_fetch(std::string* mainResponse) {
+bool api_fetch(std::string* mainResponse, std::string query) {
   CURL* curl;
   CURLcode res;
   std::string response;
@@ -52,10 +52,10 @@ bool api_fetch(std::string* mainResponse) {
   json messages[1];
   json msg;
   std::string role = "user";
-  std::string content = "What is AGI and when will we achieve it?";
+  // std::string content = "What is AGI and when will we achieve it?";
 
   msg["role"] = role;
-  msg["content"] = content;
+  msg["content"] = query;
   messages[0] = msg;
   jsonData["model"] = model_name;
   jsonData["messages"] = messages;

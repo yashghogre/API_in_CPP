@@ -7,16 +7,16 @@ using json = nlohmann::json;
 int main() {
 
   std::string response;
-  bool apiRes = api_fetch(&response);
+  std::string query;
 
-  if(apiRes) {
-    std::cout << "This worked!" << std::endl;
-    std::cout << "Response from main.cpp file: " << std::endl << response << std::endl;
-  }
-  else {
+  std::cout << "Please write the query to fetch: " << std::endl;
+  getline(std::cin, query);
+
+  bool apiRes = api_fetch(&response, query);
+
+  if(!apiRes) {
     std::cout << "Nah! Work again" << std::endl;
   }
-
 
   return 0;
 }
