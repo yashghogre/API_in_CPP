@@ -74,7 +74,7 @@ bool api_fetch(std::string* mainResponse, std::string query) {
 
   struct curl_slist* headers = nullptr;
   headers = curl_slist_append(headers, "Content-Type: application/json");
-  headers = curl_slist_append(headers, "Authorization: Bearer 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");
+  headers = curl_slist_append(headers, "Authorization: Bearer <API_KEY>");
 
   curl_easy_setopt(curl, CURLOPT_HTTPHEADER, headers);
   curl_easy_setopt(curl, CURLOPT_POSTFIELDS, jsonString.c_str());
